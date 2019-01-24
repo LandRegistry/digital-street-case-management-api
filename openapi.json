@@ -1,0 +1,732 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Case API",
+    "version": "1.0.0",
+    "description": "HM Land Registry Digital Street Proof of Concept",
+    "contact": {
+      "name": "HM Land Registry"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "paths": {
+    "/cases": {
+      "get": {
+        "summary": "Retrieve a list of Cases",
+        "operationId": "get_cases",
+        "tags": [
+          "Cases"
+        ],
+        "parameters": [
+          {
+            "name": "assigned_staff_id",
+            "in": "query",
+            "description": "The user identity of the assigned staff/conveyancer to filter by",
+            "schema": {
+              "$ref": "#/components/schemas/Case/properties/assigned_staff_id"
+            }
+          },
+          {
+            "name": "title_number",
+            "in": "query",
+            "description": "The title number to filter by",
+            "schema": {
+              "$ref": "#/components/schemas/Case/properties/title_number"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The state of the case to filter by",
+            "schema": {
+              "$ref": "#/components/schemas/Case/properties/status"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/case_embed"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Case"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new Case",
+        "operationId": "create_case",
+        "tags": [
+          "Cases"
+        ],
+        "requestBody": {
+          "description": "New Case data to create",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Case"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Newly created Case",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Case"
+                }
+              }
+            },
+            "links": {
+              "GetCaseByCaseRef": {
+                "$ref": "#/components/links/GetCaseByCaseRef"
+              },
+              "UpdateCaseByCaseRef": {
+                "$ref": "#/components/links/UpdateCaseByCaseRef"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cases/{case_reference}": {
+      "get": {
+        "summary": "Retrieve a specific Case",
+        "operationId": "get_case",
+        "tags": [
+          "Cases"
+        ],
+        "parameters": [
+          {
+            "name": "case_reference",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the Case to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/case_embed"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Case"
+                }
+              }
+            },
+            "links": {
+              "UpdateCaseByCaseRef": {
+                "$ref": "#/components/links/UpdateCaseByCaseRef"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a specific Case",
+        "operationId": "update_case",
+        "tags": [
+          "Cases"
+        ],
+        "parameters": [
+          {
+            "name": "case_reference",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the Case to update",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Case data to update",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Case"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Case"
+                }
+              }
+            },
+            "links": {
+              "GetCaseByCaseRef": {
+                "$ref": "#/components/links/GetCaseByCaseRef"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Retrieve a list of Users",
+        "operationId": "get_users",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "email_address",
+            "in": "query",
+            "description": "The email address to filter by",
+            "schema": {
+              "type": "string"
+            },
+            "example": "john.doe@example.com"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new User",
+        "operationId": "create_user",
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "description": "New User data to create",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Newly created User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            },
+            "links": {
+              "GetUserByIdentity": {
+                "$ref": "#/components/links/GetUserByIdentity"
+              },
+              "UpdateUserByIdentity": {
+                "$ref": "#/components/links/UpdateUserByIdentity"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{identity}": {
+      "get": {
+        "summary": "Retrieve a specific User",
+        "operationId": "get_user",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/identity"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            },
+            "links": {
+              "UpdateUserByIdentity": {
+                "$ref": "#/components/links/UpdateUserByIdentity"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a specific User",
+        "operationId": "update_user",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/identity"
+          }
+        ],
+        "requestBody": {
+          "description": "User data to update",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            },
+            "links": {
+              "GetUserByIdentity": {
+                "$ref": "#/components/links/GetUserByIdentity"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Case": {
+        "required": [
+          "case_reference",
+          "case_type",
+          "status",
+          "assigned_staff_id",
+          "client_id",
+          "address",
+          "counterparty_id",
+          "counterparty_conveyancer_org",
+          "counterparty_conveyancer_contact_id"
+        ],
+        "properties": {
+          "case_reference": {
+            "type": "string",
+            "example": "ABCD123"
+          },
+          "case_type": {
+            "type": "string",
+            "enum": [
+              "buy",
+              "sell"
+            ],
+            "example": "sell"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "completed",
+              "terminated"
+            ],
+            "example": "active"
+          },
+          "assigned_staff_id": {
+            "type": "integer"
+          },
+          "client_id": {
+            "type": "integer"
+          },
+          "address": {
+            "$ref": "#/components/schemas/TitleAddress"
+          },
+          "title_number": {
+            "type": "string",
+            "pattern": "^([A-Z]{0,3}[1-9][0-9]{0,5}|[0-9]{1,6}[ZT])$",
+            "nullable": true,
+            "example": "ZQV888860"
+          },
+          "counterparty_id": {
+            "type": "integer"
+          },
+          "counterparty_conveyancer_org": {
+            "$ref": "#/components/schemas/X500Name"
+          },
+          "counterparty_conveyancer_contact_id": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "example": "2018-11-07T10:25:29+00:00"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "readOnly": true,
+            "example": "2018-11-07T10:25:29+00:00"
+          }
+        }
+      },
+      "User": {
+        "required": [
+          "identity",
+          "first_name",
+          "last_name",
+          "email_address",
+          "phone_number",
+          "address"
+        ],
+        "properties": {
+          "identity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "first_name": {
+            "type": "string",
+            "example": "Natasha"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "Powell"
+          },
+          "email_address": {
+            "type": "string",
+            "format": "email",
+            "example": "n.powell@example.com"
+          },
+          "phone_number": {
+            "type": "string",
+            "example": "07700900354"
+          },
+          "address": {
+            "$ref": "#/components/schemas/UserAddress"
+          }
+        }
+      },
+      "TitleAddress": {
+        "required": [
+          "house_name_number",
+          "street",
+          "town_city",
+          "county",
+          "country",
+          "postcode"
+        ],
+        "properties": {
+          "house_name_number": {
+            "type": "string",
+            "example": 2
+          },
+          "street": {
+            "type": "string",
+            "example": "William Prance Road"
+          },
+          "town_city": {
+            "type": "string",
+            "example": "Plymouth"
+          },
+          "county": {
+            "type": "string",
+            "example": "Devon"
+          },
+          "country": {
+            "type": "string",
+            "enum": [
+              "England",
+              "Wales"
+            ]
+          },
+          "postcode": {
+            "type": "string",
+            "pattern": "^(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW]) ?[0-9][ABD-HJLNP-UW-Z]{2})$",
+            "example": "PL6 5WS"
+          }
+        }
+      },
+      "UserAddress": {
+        "required": [
+          "house_name_number",
+          "street",
+          "town_city",
+          "county",
+          "country",
+          "postcode"
+        ],
+        "properties": {
+          "house_name_number": {
+            "type": "string",
+            "example": 143
+          },
+          "street": {
+            "type": "string",
+            "example": "Cowgate"
+          },
+          "town_city": {
+            "type": "string",
+            "example": "Edinburgh"
+          },
+          "county": {
+            "type": "string",
+            "example": "Midlothian"
+          },
+          "country": {
+            "type": "string",
+            "example": "Scotland"
+          },
+          "postcode": {
+            "type": "string",
+            "pattern": "^(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW]) ?[0-9][ABD-HJLNP-UW-Z]{2})$",
+            "example": "EH1 1JS"
+          }
+        }
+      },
+      "X500Name": {
+        "type": "object",
+        "required": [
+          "organisation",
+          "locality",
+          "country"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "organisation": {
+            "type": "string",
+            "pattern": "^([A-Z]{1}[^\\r\\n\\t\\f\\v\\,\\=\\$\\\"\\'\\\\]{0,126}\\S)$",
+            "example": "Generic Conveyancing Company"
+          },
+          "locality": {
+            "type": "string",
+            "pattern": "^([A-Z]{1}[^\\r\\n\\t\\f\\v\\,\\=\\$\\\"\\'\\\\]{0,62}\\S)$",
+            "example": "Plymouth"
+          },
+          "country": {
+            "type": "string",
+            "pattern": "^([A-Z]{2})$",
+            "example": "GB"
+          },
+          "state": {
+            "type": "string",
+            "pattern": "^([A-Z]{1}[^\\r\\n\\t\\f\\v\\,\\=\\$\\\"\\'\\\\]{0,126}\\S)$",
+            "example": "Devon"
+          },
+          "organisational_unit": {
+            "type": "string",
+            "pattern": "^([A-Z]{1}[^\\r\\n\\t\\f\\v\\,\\=\\$\\\"\\'\\\\]{0,126}\\S)$"
+          },
+          "common_name": {
+            "type": "string",
+            "pattern": "^([A-Z]{1}[^\\r\\n\\t\\f\\v\\,\\=\\$\\\"\\'\\\\]{0,126}\\S)$"
+          }
+        }
+      },
+      "Error": {
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "case_embed": {
+        "name": "embed",
+        "in": "query",
+        "description": "A comma-separated list of objects to embed.",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "assigned_staff",
+              "assigned_staff_id",
+              "client",
+              "client_id",
+              "counterparty",
+              "counterparty_id",
+              "counterparty_conveyancer_contact",
+              "counterparty_conveyancer_contact_id"
+            ]
+          },
+          "minItems": 1
+        },
+        "example": [
+          "client_id",
+          "counterparty"
+        ],
+        "explode": false,
+        "style": "form"
+      },
+      "case_reference": {
+        "name": "case_reference",
+        "in": "path",
+        "required": true,
+        "description": "The ID of the case to process",
+        "schema": {
+          "type": "string"
+        },
+        "example": "ABCD123"
+      },
+      "identity": {
+        "name": "identity",
+        "in": "path",
+        "required": true,
+        "description": "The user identity of the user to process",
+        "schema": {
+          "type": "integer"
+        }
+      }
+    },
+    "links": {
+      "GetCaseByCaseRef": {
+        "operationId": "get_case",
+        "parameters": {
+          "case_reference": "$response.body#/case_reference"
+        }
+      },
+      "UpdateCaseByCaseRef": {
+        "operationId": "update_case",
+        "parameters": {
+          "case_reference": "$response.body#/case_reference"
+        }
+      },
+      "GetUserByIdentity": {
+        "operationId": "get_user",
+        "parameters": {
+          "identity": "$response.body#/identity"
+        }
+      },
+      "UpdateUserByIdentity": {
+        "operationId": "update_user",
+        "parameters": {
+          "identity": "$response.body#/identity"
+        }
+      }
+    }
+  }
+}

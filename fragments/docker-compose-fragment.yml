@@ -1,0 +1,53 @@
+version: '2'
+services:
+  # Notice how the service name, container name and repo directory (where the Dockerfile lives) all match.
+  case-management-api-a:
+    container_name: case-management-api-a
+    build: ./case-management-api
+    environment:
+      SQL_DATABASE: 'casemanagementadb'
+      APP_SQL_USERNAME: 'conveyancerauser'
+      SQL_PASSWORD: 'conveyancerapassword'
+    restart: on-failure
+    ports:
+      # The base Flask Dockerfile tells gunicorn to use 8080 by default, we expose it here and map it to a unique 
+      # port for the app (which is subsequently used by the dev-env to forward it outside of vagrant too).
+      - "8003:8080"
+    volumes:
+      # Our convention is (for python) to always map the app files to /src within the container
+      - ./case-management-api:/src
+    # Redirect all the logs to a logstash server. Logstash is set up to parse RFC5424 format messages.
+    logging:
+      driver: syslog
+      options:
+        syslog-format: "rfc5424"
+        syslog-address: "tcp://localhost:25826"
+        tag: "{{.Name}}"
+    # Docker-compose will ensure logstash is started before the application starts.
+    depends_on:
+      - logstash
+  case-management-api-b:
+    container_name: case-management-api-b
+    build: ./case-management-api
+    environment:
+      SQL_DATABASE: 'casemanagementbdb'
+      APP_SQL_USERNAME: 'conveyancerbuser'
+      SQL_PASSWORD: 'conveyancerbpassword'
+    restart: on-failure
+    ports:
+      # The base Flask Dockerfile tells gunicorn to use 8080 by default, we expose it here and map it to a unique 
+      # port for the app (which is subsequently used by the dev-env to forward it outside of vagrant too).
+      - "8004:8080"
+    volumes:
+      # Our convention is (for python) to always map the app files to /src within the container
+      - ./case-management-api:/src
+    # Redirect all the logs to a logstash server. Logstash is set up to parse RFC5424 format messages.
+    logging:
+      driver: syslog
+      options:
+        syslog-format: "rfc5424"
+        syslog-address: "tcp://localhost:25826"
+        tag: "{{.Name}}"
+    # Docker-compose will ensure logstash is started before the application starts.
+    depends_on:
+      - logstash
