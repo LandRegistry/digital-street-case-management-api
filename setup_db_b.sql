@@ -28,8 +28,12 @@ INSERT INTO "case" (case_type, status, case_reference, created_at, title_number,
 VALUES	('buy', 'active', 'LAUN245', '2018-11-01 09:00:00.000000', 'ZQV888860', 4, 2, 1, 'O=Conveyancer1,L=Plymouth,C=GB', 3, 1),
 		('buy', 'active', 'HETC016', '2018-11-01 09:00:00.000000', 'ZQV888861', 4, 2, 5, 'O=Conveyancer1,L=Plymouth,C=GB', 3, 6),
 		('buy', 'active', 'JFYQ117', '2018-11-01 09:00:00.000000', 'ZQV888862', 4, 2, 6, 'O=Conveyancer1,L=Plymouth,C=GB', 3, 7),
-		('sell', 'active', 'NATT237', '2018-11-01 09:00:00.000000', NULL, 4, 7, 2, 'O=Conveyancer1,L=Plymouth,C=GB', 3, 8),
+		('sell', 'active', 'NATT237', '2018-11-01 09:00:00.000000', 'ZQV888863', 4, 7, 2, 'O=Conveyancer1,L=Plymouth,C=GB', 3, 8),
 		('buy', 'active', 'IIAS835', '2018-11-01 09:00:00.000000', 'RTV237231', 4, 7, 1, 'O=Conveyancer1,L=Plymouth,C=GB', 3, 2),
 		('buy', 'active', 'PADV126', '2018-11-01 09:00:00.000000', 'RTV237232', 4, 6, 2, 'O=Conveyancer1,L=Plymouth,C=GB', 3, 3),
 		('buy', 'active', 'LAXA531', '2018-11-01 09:00:00.000000', 'RTV237233', 2, 5, 3, 'O=Conveyancer1,L=Plymouth,C=GB', 1, 4),
-		('sell', 'active', 'AHNI001', '2018-11-01 09:00:00.000000', NULL, 1, 4, 2, 'O=Conveyancer1,L=Plymouth,C=GB', 6, 5);
+		('sell', 'active', 'AHNI001', '2018-11-01 09:00:00.000000', 'RTV237234', 1, 4, 2, 'O=Conveyancer1,L=Plymouth,C=GB', 6, 5);
+
+INSERT INTO "restriction" (restriction_id, restriction_type, restriction_text)
+VALUES	('BX102', 'CBCR', 'RESTRICTION: No disposition of the registered estate by the proprietor of the registered estate is to be registered without a written consent signed by the proprietor for the time being of the Charge dated *CD* in favour of *CP* referred to in the Charges Register.'),
+		('BX750', 'ORES', 'RESTRICTION: No disposition by the proprietor of the registered estate to which section 36 or section 38 of the Charities Act 1993 applies is to be registered unless the instrument contains a certificate complying with section 37(2) or section 39(2) of that Act as appropriate.');

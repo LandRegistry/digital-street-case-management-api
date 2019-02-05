@@ -322,3 +322,33 @@ class X500Name(object):
             "organisational_unit": self.organisational_unit,
             "common_name": self.common_name,
         }
+
+
+class Restriction(db.Model):
+    """Class representation of a Restriction."""
+    __tablename__ = 'restriction'
+
+    # Fields
+    restriction_id = db.Column(db.String, primary_key=True)
+    restriction_type = db.Column(db.String)
+    restriction_text = db.Column(db.String)
+
+    # Methods
+    def __init__(self, restriction_id, restriction_type, restriction_text):
+        self.restriction_id = restriction_id.upper()
+        self.restriction_type = restriction_type.upper()
+        self.restriction_text = restriction_text
+
+    def __repr__(self):
+        return str(self)
+
+    def __str__(self):
+        return json.dumps(self.as_dict(), sort_keys=True, separators=(',', ':'))
+
+    def as_dict(self, embed=[]):
+        result = {
+            "restriction_id": self.restriction_id,
+            "restriction_type": self.restriction_type,
+            "restriction_text": self.restriction_text
+        }
+        return result

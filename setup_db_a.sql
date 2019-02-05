@@ -25,11 +25,15 @@ VALUES	(1, 'Lisa', 'White', 'lisa.white@example.com', '07700900354', 2),
 		(7, 'Holly', 'Windsor', 'holly.windsor@example.com', '07700900970', 8);
 
 INSERT INTO "case" (case_type, status, case_reference, created_at, title_number, assigned_staff_id, client_id, counterparty_id, counterparty_conveyancer_org, counterparty_conveyancer_contact_id, address_id)
-VALUES	('sell', 'active', 'ABCD123', '2018-11-01 09:00:00.000000', NULL, 3, 1, 2, 'O=Conveyancer2,L=Plymouth,C=GB', 4, 1),
-		('sell', 'active', 'KSYB294', '2018-11-01 09:00:00.000000', NULL, 3, 5, 2, 'O=Conveyancer2,L=Plymouth,C=GB', 4, 6),
-		('sell', 'active', 'MAYN467', '2018-11-01 09:00:00.000000', NULL, 3, 6, 2, 'O=Conveyancer2,L=Plymouth,C=GB', 4, 7),
+VALUES	('sell', 'active', 'ABCD123', '2018-11-01 09:00:00.000000', 'ZQV888860', 3, 1, 2, 'O=Conveyancer2,L=Plymouth,C=GB', 4, 1),
+		('sell', 'active', 'KSYB294', '2018-11-01 09:00:00.000000', 'ZQV888861', 3, 5, 2, 'O=Conveyancer2,L=Plymouth,C=GB', 4, 6),
+		('sell', 'active', 'MAYN467', '2018-11-01 09:00:00.000000', 'ZQV888862', 3, 6, 2, 'O=Conveyancer2,L=Plymouth,C=GB', 4, 7),
 		('buy', 'active', 'MNAW046', '2018-11-01 09:00:00.000000', 'ZQV888863', 3, 2, 7, 'O=Conveyancer2,L=Plymouth,C=GB', 4, 8),
-		('sell', 'active', 'NAYR825', '2018-11-01 09:00:00.000000', NULL, 3, 1, 7, 'O=Conveyancer2,L=Plymouth,C=GB', 4, 2),
-		('sell', 'active', 'NCAY914', '2018-11-01 09:00:00.000000', NULL, 3, 2, 6, 'O=Conveyancer2,L=Plymouth,C=GB', 4, 3),
-		('sell', 'active', 'XXSA013', '2018-11-01 09:00:00.000000', NULL, 1, 3, 5, 'O=Conveyancer2,L=Plymouth,C=GB', 2, 4),
+		('sell', 'active', 'NAYR825', '2018-11-01 09:00:00.000000', 'RTV237231', 3, 1, 7, 'O=Conveyancer2,L=Plymouth,C=GB', 4, 2),
+		('sell', 'active', 'NCAY914', '2018-11-01 09:00:00.000000', 'RTV237232', 3, 2, 6, 'O=Conveyancer2,L=Plymouth,C=GB', 4, 3),
+		('sell', 'active', 'XXSA013', '2018-11-01 09:00:00.000000', 'RTV237233', 1, 3, 5, 'O=Conveyancer2,L=Plymouth,C=GB', 2, 4),
 		('buy', 'active', 'PAHD134', '2018-11-01 09:00:00.000000', 'RTV237234', 6, 2, 4, 'O=Conveyancer2,L=Plymouth,C=GB', 1, 5);
+
+INSERT INTO "restriction" (restriction_id, restriction_type, restriction_text)
+VALUES	('BX102', 'CBCR', 'RESTRICTION: No disposition of the registered estate by the proprietor of the registered estate is to be registered without a written consent signed by the proprietor for the time being of the Charge dated *CD* in favour of *CP* referred to in the Charges Register.'),
+		('BX750', 'ORES', 'RESTRICTION: No disposition by the proprietor of the registered estate to which section 36 or section 38 of the Charities Act 1993 applies is to be registered unless the instrument contains a certificate complying with section 37(2) or section 39(2) of that Act as appropriate.');

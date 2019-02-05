@@ -7,7 +7,15 @@
 |**GET** /health|Returns some basic information about the app (JSON)|
 |**GET** /health/cascade/\<depth\>|Returns the app's health information as above but also the health information of any database and HTTP dependencies, down to the specified depth (JSON)|
 |**GET** /cases|Returns a list of cases in the conveyancer's management system (JSON)|
+|**POST** /cases|Creates a new case in the conveyancer's management system (JSON)|
 |**GET** /cases/\<case_reference\>|Returns a case with the specified id. (JSON)|
+|**PUT** /cases/\<case_reference\>|Modifies a case with the specified id. (JSON)|
+|**GET** /users|Returns a list of users in the conveyancer's management system (JSON)|
+|**POST** /users|Creates a new user in the conveyancer's management system (JSON)|
+|**GET** /users/\<identity\>|Returns a user with the specified id. (JSON)|
+|**PUT** /users/\<identity\>|Modifies a user with the specified id. (JSON)|
+|**GET** /restrictions|Returns a list of restrictions in the conveyancer's management system (JSON)|
+|**GET** /restrictions/\<restrictions_id\>|Returns a restrictions with the specified id. (JSON)|
 
 ## Quick start
 

@@ -413,6 +413,67 @@
           }
         }
       }
+    },
+    "/restrictions": {
+      "get": {
+        "summary": "Retrieve a list of Restrictions",
+        "operationId": "get_restrictions",
+        "tags": [
+          "Restrictions"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/restriction_type"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Restriction"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/restrictions/{restriction_id}": {
+      "get": {
+        "summary": "Retrieve a specific Restriction",
+        "operationId": "get_restriction",
+        "tags": [
+          "Restrictions"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/restriction_id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Restriction"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -487,6 +548,30 @@
             "nullable": true,
             "readOnly": true,
             "example": "2018-11-07T10:25:29+00:00"
+          }
+        }
+      },
+      "Restriction": {
+        "required": [
+          "restriction_id",
+          "restriction_type",
+          "restriction_text"
+        ],
+        "properties": {
+          "restriction_id": {
+            "type": "string"
+          },
+          "restriction_type": {
+            "type": "string",
+            "enum": [
+              "ORES",
+              "CBCR"
+            ],
+            "example": "CBCR"
+          },
+          "restriction_text": {
+            "type": "string",
+            "example": "A string of text containing infills. This restriction is of type **RT** and was created at **RD**."
           }
         }
       },
@@ -699,6 +784,38 @@
         "description": "The user identity of the user to process",
         "schema": {
           "type": "integer"
+        }
+      },
+      "restriction_id": {
+        "name": "restriction_id",
+        "in": "path",
+        "required": true,
+        "description": "The ID of a Restriction",
+        "schema": {
+          "$ref": "#/components/schemas/Restriction/properties/restriction_id"
+        }
+      },
+      "restriction_type": {
+        "name": "type",
+        "in": "query",
+        "description": "The ID of a Restriction",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Restriction/properties/restriction_type"
+          }
+        }
+      }
+    },
+    "responses": {
+      "500": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
         }
       }
     },
