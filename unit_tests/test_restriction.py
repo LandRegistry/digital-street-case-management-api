@@ -1,6 +1,7 @@
 from unittest import TestCase, mock
-from case_management_api.main import app
+
 from case_management_api.extensions import db
+from case_management_api.main import app
 from case_management_api.models import Restriction
 
 # Test data
@@ -49,7 +50,10 @@ class TestRestriction(TestCase):
         """Gets a specific restriction by its id."""
         mock_db_query.get.return_value = restriction1
 
-        response = self.app.get('/v1/restrictions/' + restriction1.restriction_type, headers={'accept': 'application/json'})
+        response = self.app.get(
+            '/v1/restrictions/' + restriction1.restriction_type,
+            headers={'accept': 'application/json'}
+        )
 
         print(response.get_data().decode())
 

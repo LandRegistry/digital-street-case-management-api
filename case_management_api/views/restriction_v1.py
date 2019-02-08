@@ -1,9 +1,10 @@
+import json
+
 from flask import Blueprint, Response, current_app, request
+from flask_negotiate import produces
+
 from case_management_api.exceptions import ApplicationError
 from case_management_api.models import Restriction
-from flask_negotiate import produces
-from jsonschema import validate, ValidationError, FormatChecker, RefResolver
-import json
 
 # This is the blueprint object that gets registered into the app in blueprints.py.
 restriction_v1 = Blueprint('restriction_v1', __name__)
