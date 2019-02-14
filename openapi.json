@@ -586,8 +586,7 @@
         ],
         "properties": {
           "identity": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string"            
           },
           "first_name": {
             "type": "string",
@@ -783,7 +782,7 @@
         "required": true,
         "description": "The user identity of the user to process",
         "schema": {
-          "type": "integer"
+          "type": "string"
         }
       },
       "restriction_id": {

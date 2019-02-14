@@ -15,11 +15,11 @@ class Case(db.Model):
     updated_at = db.Column(db.DateTime, nullable=True)
     status = db.Column(db.String, nullable=False)
     title_number = db.Column(db.String, nullable=True)
-    assigned_staff_id = db.Column(db.Integer, db.ForeignKey('user.identity'), nullable=False)
-    client_id = db.Column(db.Integer, db.ForeignKey('user.identity'), nullable=False)
-    counterparty_id = db.Column(db.Integer, db.ForeignKey('user.identity'), nullable=False)
+    assigned_staff_id = db.Column(db.String, db.ForeignKey('user.identity'), nullable=False)
+    client_id = db.Column(db.String, db.ForeignKey('user.identity'), nullable=False)
+    counterparty_id = db.Column(db.String, db.ForeignKey('user.identity'), nullable=False)
     counterparty_conveyancer_org = db.Column(db.String, nullable=False)
-    counterparty_conveyancer_contact_id = db.Column(db.Integer, db.ForeignKey('user.identity'), nullable=False)
+    counterparty_conveyancer_contact_id = db.Column(db.String, db.ForeignKey('user.identity'), nullable=False)
     address_id = db.Column(db.Integer,
                            db.ForeignKey('address.address_id', ondelete="CASCADE", onupdate="CASCADE"),
                            nullable=False)
@@ -118,7 +118,7 @@ class User(db.Model):
     __tablename__ = 'user'
 
     # Fields
-    identity = db.Column(db.Integer, primary_key=True, autoincrement=False)
+    identity = db.Column(db.String, primary_key=True)
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
     email_address = db.Column(db.String, nullable=False, unique=True, index=True)
